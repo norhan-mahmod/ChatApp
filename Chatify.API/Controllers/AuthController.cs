@@ -47,5 +47,12 @@ namespace Chatify.API.Controllers
             });
             return Ok(result.Message);
         }
+
+        [HttpPost("Logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("AuthToken");
+            return Ok("Logged Out Successfully!");
+        }
     }
 }
