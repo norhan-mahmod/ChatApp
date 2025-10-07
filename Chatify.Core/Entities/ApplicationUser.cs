@@ -11,5 +11,14 @@ namespace Chatify.Core.Entities
     {
         public string DisplayName { get; set; }
         public string ProfilePictureURL { get; set; }
+        
+        // Relationship to Message
+        public List<Message> SentMessages { get; set; }
+
+        // Relationship to ApplicationUserChatRoom
+        public List<ApplicationUserChatRoom> UserChatRooms { get; set; }
+
+        // Relationship to MessageReadStatus
+        public List<MessageReadStatus> MessageReads { get; set; }
     }
 }
