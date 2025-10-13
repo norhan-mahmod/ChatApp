@@ -14,10 +14,10 @@ namespace Chatify.Repository.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public Message Messages { get; set; }
-        public ChatRoom ChatRooms { get; set; }
-        public ApplicationUserChatRoom ApplicationUserChatRooms { get; set; }
-        public MessageReadStatus MessageReadStatus { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<ChatRoom> ChatRooms { get; set; }
+        public DbSet<ApplicationUserChatRoom> ApplicationUserChatRooms { get; set; }
+        public DbSet<MessageReadStatus> MessageReadStatus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

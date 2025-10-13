@@ -27,7 +27,8 @@ namespace Chatify.Service
             var authClaims = new List<Claim>()
             {
                 new Claim(ClaimTypes.GivenName , user.UserName),
-                new Claim(ClaimTypes.Email , user.Email)
+                new Claim(ClaimTypes.Email , user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
 
             // To Add User Roles in Private Claims

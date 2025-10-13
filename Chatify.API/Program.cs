@@ -1,4 +1,5 @@
 
+using Chatify.API.Chat;
 using Chatify.API.Extensions;
 using Chatify.Repository.Data;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,21 @@ namespace Chatify.API
 
             builder.Services.AddApplicationServices();
 
+            // Add SignalR
+            builder.Services.AddSignalR();
+
+            // Configure CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularClient", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -37,6 +53,8 @@ namespace Chatify.API
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("AllowAngularClient");
+
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
@@ -44,6 +62,9 @@ namespace Chatify.API
 
 
             app.MapControllers();
+
+            // Map SignalR Hub
+            app.MapHub<ChatHub>("/chathub");
 
             app.Run();
         }
