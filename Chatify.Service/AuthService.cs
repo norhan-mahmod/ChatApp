@@ -9,6 +9,7 @@ using Chatify.Core.Entities;
 using Chatify.Core.Services;
 using Chatify.Service.Helper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chatify.Service
 {
@@ -105,6 +106,31 @@ namespace Chatify.Service
             {
                 return new GeneralResponseDto<string>() { IsSucceeded = false , Message = ex.Message };
             }
+        }
+
+        public async Task<GeneralResponseDto<UserDataDto>> GetUserData(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return new GeneralResponseDto<UserDataDto>() { IsSucceeded = false, Data = null };
+            else
+                return new GeneralResponseDto<UserDataDto>()
+                {
+                    IsSucceeded = true,
+                    Data = new UserDataDto()
+                    {
+                        Id = userId,
+                        DisplayName = user.DisplayName,
+                        ProfilePictureURL = user.ProfilePictureURL
+                    }
+                };
+        }
+
+        public async Task<bool> IsValidUserIds(List<string> userIds)
+        {
+            var validUsers = await userManager.Users.Where(u => userIds.Contains(u.Id))
+                                .Select(u => u.Id).ToListAsync();
+            return userIds.Count != validUsers.Count ? false : true;
         }
     }
 }

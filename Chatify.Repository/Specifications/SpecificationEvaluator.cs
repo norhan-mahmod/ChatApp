@@ -29,6 +29,9 @@ namespace Chatify.Repository.Specifications
             if (spec.Includes.Any())
                 query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
 
+            // Include strings (for ThenInclude)
+            if (spec.IncludeStrings.Any())
+                query = spec.IncludeStrings.Aggregate(query, (current, include) => current.Include(include));
             
             return query;
         }

@@ -12,5 +12,7 @@ namespace Chatify.Core.Services
     {
         Task<GeneralResponseDto<bool>> RegisterUser(RegisterDto registerDto);
         Task<GeneralResponseDto<string>> Login(LoginDto loginDto);
+        Task<GeneralResponseDto<UserDataDto>> GetUserData(string userId);
+        Task<bool> IsValidUserIds(List<string> userIds); 
     }
 }

@@ -14,6 +14,7 @@ namespace Chatify.Core.Specifications
 
         // Relative Entities To Include
         List<Expression<Func<T, object>>> Includes { get; }
+        List<string> IncludeStrings { get; }
 
         // OrderBy , OrderByDescending
         Expression<Func<T , object>>? OrderBy { get; }

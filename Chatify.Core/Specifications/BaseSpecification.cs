@@ -16,7 +16,8 @@ namespace Chatify.Core.Specifications
         }
         public Expression<Func<T, bool>>? Criteria { get; protected set; }
 
-        public List<Expression<Func<T, object>>> Includes => new List<Expression<Func<T, object>>>();
+        public List<Expression<Func<T, object>>> Includes => new();
+        public List<string> IncludeStrings => new();
 
         public Expression<Func<T, object>>? OrderBy { get; private set; }
 
@@ -30,6 +31,9 @@ namespace Chatify.Core.Specifications
 
         protected void AddInclude(Expression<Func<T, object>> includeExpression)
             => Includes.Add(includeExpression);
+
+        protected void AddInclude(string includeString)
+            => IncludeStrings.Add(includeString);
 
         protected void AddOrderBy(Expression<Func<T, object>> orderByExpression)
             => OrderBy = orderByExpression;
